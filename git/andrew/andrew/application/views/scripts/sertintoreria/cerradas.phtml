@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/media/images/favicon.ico" />
+		
+		<style type="text/css" title="currentStyle">
+			@import "../../media/css/demo_page.css";
+			@import "../../media/css/demo_table.css";
+			@import "../../media/css/jquery-ui-1.8.22.custom.css";
+		</style>
+		<script type="text/javascript" charset="utf-8">
+
+			/*Create a table  in demo DIV*/
+			$(document).ready(function() {
+
+
+				$('#demo').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
+				$('#example').dataTable( {
+					"aaData": 
+			<?php echo $this->json?>,
+		
+				/*	"bProcessing": true,
+			       "sAjaxSource": 'scripts/json.txt',
+			       "sAjaxDataProp": "aaData",*/
+		
+					"aoColumns": [
+						{ "sTitle": "Orden","sWidth": "10px"  },
+						{ "sTitle": "Fecha llegada","sWidth": "200px" },
+						{ "sTitle": "Fecha salida","sWidth": "200px" },
+						{ "sTitle": "Nombre","sWidth": "80px" },
+						{ "sTitle": "Apellido","sWidth": "80px" },
+						{ "sTitle": "Monto","sWidth": "50px" },
+			
+					],
+					"bJQueryUI": true,
+					 "oLanguage": {
+				    "sLengthMenu": "Mostrar _MENU_ Facturas de lavanderia por página",
+				    "sZeroRecords": "Sin facturas para esta busqueda",
+				    "sInfo": "Mostrando _START_ to _END_ de _TOTAL_ facturas para este cliente",
+				    "sInfoEmpty": "Mostrando 0 para 0 de 0 facturas",
+				    "sInfoFiltered": "(filtered from _MAX_ total records)",
+							"sEmptyTable" : "No hay facturas para este cliente"
+				}
+				} );	
+	
+
+			    $("tfoot input").keyup( function () {
+				/* filtro */
+				oTable.fnFilter( this.value, $("tfoot input").index(this) );
+			    } );
+				/* Al seleccionar una columna se marca */
+			    $('#example tr').click( function() {
+				$(this).toggleClass('row_selected');
+			    } );
+			} );
+	</script>
+	</head>
+	<body>
+		<div id="demo"></div>
+	</body>
+</html>

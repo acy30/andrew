@@ -1,0 +1,109 @@
+<?php
+
+class Application_Model_Mertincli extends Zend_Db_Table_Abstract
+{
+      protected $_name = 'mer_tin_cli'; 
+      protected $consultas = array(
+      	0 => 'SELECT * FROM ser_tintoreria',
+      	1 => 'SELECT st.id,st.f_llegada,t.nombre,t.apellido,t.email,t.telefono,st.monto FROM ser_tintoreria st LEFT JOIN tintoreria t on st.tintoreriaid = t.id where st.f_salida is null and t.id = ', //me trae las ordenes que no an sido cerradas
+      	2 => 'SELECT st.id,st.f_llegada,st.f_salida,t.nombre,t.apellido,t.email,t.telefono,st.monto FROM ser_tintoreria st LEFT JOIN tintoreria t on st.tintoreriaid = t.id where st.f_salida is not null and t.id = ', //me trae las ordenes que an sido cerradas
+      	3 => '',
+      	4 => ''
+      );
+
+      public function IniciarBD() {
+    	  try {
+      	  // Seteos para la conexión con la base de datos
+        	$db = Zend_Db::factory('Pdo_Mysql', array(
+         	'host'     => 'localhost',
+            	'username' => 'root',
+            	'password' => 'root',
+            	'dbname'   => 'andrew'
+        	));
+        
+        	//Test de conexión con la base de datos
+        	$db->getConnection();        
+         	return $db;
+
+	} catch (Zend_Db_Adapter_Exception $e) {
+		//Sucedió un error con las credenciales del usuario o la base de datos.
+		die($e->getMessage());
+	} catch (Zend_Exception $e) {
+		// Sucedió un error inexperado
+		die($e->getMessage());
+	}	
+      }
+      /*
+       *Modulo para ejecutar querys estaticos y retorna el res
+       */
+	public function Ejecuter($n) {
+		$db = $this->IniciarBD();  	
+	      	$stmt = $db->query($this->consultas[$n]);
+		$stmt->setFetchMode(Zend_Db::FETCH_NUM);
+		$rows = $stmt->fetchAll();
+		return $rows;
+	}
+
+   	public function Ejecuter2($n,$p1) {
+		$db = $this->IniciarBD();  	
+	      	$stmt = $db->query($this->consultas[$n].$p1);
+		$stmt->setFetchMode(Zend_Db::FETCH_NUM);
+		$rows = $stmt->fetchAll();
+		return $rows;
+	}	
+	
+      
+      
+      
+      public function getContact($id) 
+      { 
+            $id = (int)$id; 
+            $row = $this->fetchRow('id = ' . $id); 
+            if (!$row) { 
+                 throw new Exception("No se encuentra la fila $id"); 
+            } 
+            return $row->toArray(); 
+      } 
+      public function crearOrden($ser_tintoreriaid,$productos_tintoreria_id,$cantidad,$tipo_prendaid) 
+      { 
+         $data = array( 
+            'ser_tintoreriaid' => $ser_tintoreriaid, 
+	         'productos_tintoreria_id' => $productos_tintoreria_id,
+            'cantidad' => $cantidad, 
+	         'tipo_prendaid' => $tipo_prendaid, 
+            ); 
+         $this->insert($data); 
+      } 
+      function updateContact($id, $nombre, $apellido, $email,$telefono)
+      { 
+            $data = array( 
+                 'nombre' => $nombre, 
+                 'apellido' => $apellido, 
+                 'email' => $email, 
+		 'telefono' => $telefono, 
+            ); 
+            $this->update($data, 'id = '. (int)$id); 
+      }
+      function Cerrar($id,$monto)
+      { 
+            $data = array( 
+		'f_salida' => date('d-m-Y H:i:s').'', 
+		'monto' => $monto,  
+            ); 
+            $this->update($data, 'id = '. (int)$id); 
+      }  
+      function Anular($id)
+      { 
+            $data = array( 
+		'monto' => '0',  
+		'f_salida' => 'NULA',   
+            ); 
+            $this->update($data, 'id = '. (int)$id); 
+      }  
+      function deleteContact($id) 
+      { 
+            $this->delete('id =' . (int)$id); 
+      } 
+
+}
+

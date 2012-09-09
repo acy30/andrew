@@ -1,0 +1,14 @@
+body{
+	background: url("../img/fondosection.png");	
+}
+section h1{
+ color:white;
+}
+section {
+ border-radius:20px;
+ padding: 5px;
+ width: 70%;
+ margin: 0 auto;
+background: url("../img/fondo.png");	
+ 
+}

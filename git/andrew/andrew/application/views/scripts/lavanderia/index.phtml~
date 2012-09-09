@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/media/images/favicon.ico" />
+		
+		<title>DataTables example</title>
+		<style type="text/css" title="currentStyle">
+			@import "../../media/css/demo_page.css";
+			@import "../../media/css/demo_table.css";
+			@import "../../media/css/jquery-ui-1.8.22.custom.css";
+		</style>
+		<script type="text/javascript" charset="utf-8">
+		
+
+			/*Create a table  in demo DIV*/
+			$(document).ready(function() {
+
+				$('#demo').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
+				$('#example').dataTable( {
+					"aaData": 
+			<?php echo $this->json?>,
+		
+				/*	"bProcessing": true,
+			       "sAjaxSource": 'scripts/json.txt',
+			       "sAjaxDataProp": "aaData",*/
+		
+					"aoColumns": [
+						{ "sTitle": "Nombre","sWidth": "200px" },
+						{ "sTitle": "Apellido","sWidth": "200px" },
+						{ "sTitle": "Correo","sWidth": "200px" },
+						{ "sTitle": "Telefono","sWidth": "100px" },
+						{ "sTitle": "Cedula","sWidth": "100px" },
+						{ "sTitle": "Eliminar","sWidth": "50px" }
+			
+					],
+					"bJQueryUI": true
+				} );	
+	
+
+			    $("tfoot input").keyup( function () {
+				/* filtro */
+				oTable.fnFilter( this.value, $("tfoot input").index(this) );
+			    } );
+				/* Marca fila al seleccionarla */
+			    $('#example tr').click( function() {
+				$(this).toggleClass('row_selected');
+			    } );
+			} );
+		</script>
+	</head>
+	<body>
+		<a class="crearvinculo" href="crear">Crear Nuevo Cliente</a>
+		<a class="crearvinculo" href="../gestion/index">Gestion Producto</a>
+		<div id="demo"></div>
+		<a class="crearvinculo crearvinculoeye" href="../reportes/lavanderia">Reportes Por Orden</a>
+		<a class="crearvinculo crearvinculoeye" href="../reportes/lavanderia3">Reportes Por Fecha</a>
+		<a class="crearvinculo crearvinculoeye" href="../serlavanderia/ordenes">Todas Las Ordenes</a>
+	</body>
+</html>
