@@ -1,0 +1,71 @@
+<?php echo $this->doctype(); ?> 
+<html>
+<head> 
+      <?php echo $this->headMeta(); ?> 
+      <?php echo $this->headTitle(); ?> 
+      <?php echo $this->headLink(); ?>
+      <?php echo $this->headScript(); ?>
+<script type="text/javascript" >
+	/*
+	*Mensajes de avisos
+	*/
+	$(document).ready(function() {
+	aux="";
+	aux += <?php echo $this->mensaje; ?>;	
+		if(aux != ""){
+			showNoticeToast(aux);
+		}
+	});      
+</script>      
+</head> 
+<body onload="iddle()" onkeyup="iddle()" onclick="iddle()">
+  <header>
+	<nav><h1><?php echo $this->titulo ?></h1>
+	<a href="../index/" >
+		<img style="float:right;margin-top:-30px;"width="40px" src="../../public/img/homehover.png">
+	</a>
+</nav>
+<nav>
+	<table style="padding-left:45px; margin-top:-53px">
+		<tr>
+			<td><a href=javascript:history.go(-1)><img src="../../public/img/left.png" style="width:31px"></a></td>
+			<td><a href=javascript:history.go(1)><img src="../../public/img/right.png" style="width:36px"></a></td>
+		<tr>
+	</table>
+	<ul>
+		<li><a href="../lavanderia/index">Lavanderia  |</a></li>
+		<li><a href="../tintoreria/index">T_Andrew  |</a></li>
+		<li><a style="padding-right:45px;" href="../tintexterna/index">T_Externa</a></li>
+		</li>
+	</ul>
+</nav>
+</header> 
+  <section> 
+  		<?php echo $this->layout()->content; ?> 
+  </section>
+
+
+ 
+<div id="snow" class="snow">	
+	<div class="copos f1">A</div> 
+	<div class="copos f2">&#10054;&#10054;&#10054;</div> 
+	<div class="copos f3">&#10053;</div> 
+	<div class="copos f4">N</div>
+	<div class="copos f5">&#10055;</div>
+	<div class="copos f6">&#10054;&#10053;&#10053;</div>
+	<div class="copos f7">D</div>
+	<div class="copos f8">&#10058;</div>
+	<div class="copos f9">&#10053;&#10053;</div>
+	<div class="copos f10">R</div>
+	<div class="copos f11">&#10054;</div>
+	<div class="copos f12">E</div>
+	<div class="copos f13">&#10054;</div>
+	<div class="copos f14">&#10053;&#10055;</div>
+	<div class="copos f15">W</div>
+	<div class="copos f16">&#10054;</div>
+	<div class="copos f17">&#10053;</div>
+</div>  
+<div id="animacion">Andrew</div>
+
+</body> 
+</html>
